@@ -48,6 +48,7 @@ io.on('connection', (socket) => {
     const existingIndex = parties[partyId].participants.findIndex(p => p.id === socket.id);
     if (existingIndex === -1) {
       parties[partyId].participants.push(participant);
+      socket.to(partyId).emit('user_joined', participant);
     } else {
       parties[partyId].participants[existingIndex] = participant;
     }
